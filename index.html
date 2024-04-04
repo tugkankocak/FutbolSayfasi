@@ -5,22 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ücretsiz Web Sitesi</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        document.getElementById("invitationForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var firstName = document.getElementById("firstName").value;
-            var lastName = document.getElementById("lastName").value;
-            var email = document.getElementById("email").value;
-            
-            // Burada davetiyeyi gönderme işlemini gerçekleştirebilirsiniz
-            // Örneğin, bir API'ye post isteği gönderebilirsiniz
-            
-            alert("Davetiye gönderildi: " + firstName + " " + lastName + " (" + email + ")");
-            
-            // Formu temizle
-            document.getElementById("invitationForm").reset();
-        });
-    </script>
 </head>
 <body>
 
@@ -65,5 +49,24 @@
             <input type="submit" value="Gönder">
         </form>
     </div>
+
+    <script>
+        document.getElementById("invitationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var email = document.getElementById("email").value;
+            
+            // SMTP sunucusunu ve kimlik bilgilerini ayarla
+            var smtpServer = "smtp.gmail.com";
+            var clientId = "527819399832-p1ejkvb5rgnnith5jce97gev2nbi02hf.apps.googleusercontent.com";
+            var clientSecret = "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";
+            var redirectUri = "https://example.com/oauth2callback"; // Yönlendirme URI'sini kendi projenize uygun olarak güncelleyin
+            var authUrl = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri + "&scope=https://www.googleapis.com/auth/gmail.send&access_type=offline";
+
+            // Kullanıcıyı OAuth 2.0 Kimlik Doğrulama ekranına yönlendir
+            window.location.href = authUrl;
+        });
+    </script>
 </body>
 </html>
